@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h2>it works!!!</h2>
-<a th:href="@{/logout}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Logout</a>
+<h2>Welcome Page</h2>
+
+<a th:href="@{/admin}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Admin Page</a>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout">
+</form>
+
 
 
 
