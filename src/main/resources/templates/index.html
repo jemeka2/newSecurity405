@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h2>Welcome Page</h2>
-
-<a th:href="@{/admin}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Admin Page</a>
-<br>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout">
-</form>
+    <h2>Welcome Page</h2>
+    <p th:if="${message}">[[${message}]]</p>
+    <a th:href="@{/admin}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Admin Page</a>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout">
+    </form>
 
 
 
