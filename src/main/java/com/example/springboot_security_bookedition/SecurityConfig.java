@@ -15,7 +15,16 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.authorizeRequests().anyRequest().authenticated().and().formLogin();
+        httpSecurity.authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?Logout=true").permitAll();
 
         //for accessing H2 for debugging purpose
         httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");
@@ -32,7 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication().dataSource(dataSource).withDefaultSchema().withUser("user")
-                .password(passwordEncoder().encode("user")).roles("USER");
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, enabled from" +
+                        " user_table where username=?")
+                .authoritiesByUsernameQuery("select username, role from role_table" +
+                        " where username=?");
     }
 }
